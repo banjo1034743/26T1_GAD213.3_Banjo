@@ -1,3 +1,4 @@
+using GAD213.P3.ConflictSystem.Relevance;
 using UnityEngine;
 
 namespace GAD213.P2.InteractionSystem
@@ -30,6 +31,14 @@ namespace GAD213.P2.InteractionSystem
         [Tooltip("Initialise in the inspector")]
         [SerializeField] private SoundPlayer _soundPlayer;
 
+        [Tooltip("Initialise in the inspector")]
+        [SerializeField] private RelevanceManager _relevanceManager;
+
+        //----
+
+        // Initialised in first attack with the test dummy, this reference used from there
+        private RelevanceManager _testDummyRelevance;
+
         #endregion
 
         #region Methods
@@ -47,6 +56,20 @@ namespace GAD213.P2.InteractionSystem
                 Debug.Log("We struck the dummy");
                 _attackController.DealDamage(_attackName);
                 _soundPlayer.PlaySFXClipAt(_attackName, transform.position, 1f);
+
+                _relevanceManager.IncreaseRelevance();
+                _relevanceManager.StartRelevanceDecreaseGracePeriod();
+
+                if (_testDummyRelevance == null)
+                {
+                    RelevanceManager testDummyRelevance = collision.gameObject.GetComponent<RelevanceManager>();
+                    _testDummyRelevance = testDummyRelevance;
+                    _testDummyRelevance.DecreaseRelevance();
+                }
+                else
+                {
+                    _testDummyRelevance.DecreaseRelevance();
+                }
             }
         }
 

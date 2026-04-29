@@ -1,3 +1,4 @@
+using GAD213.P2.InteractionSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,12 @@ namespace GAD213.P1.MovementSystem
 
         private const int _usingKeyboard = 1;
 
+        [Header("Scripts")]
+
+        [Space(5)]
+
+        [SerializeField] private FightingInputManager _fightingInputManager;
+
         #endregion
 
         #region Methods
@@ -39,6 +46,42 @@ namespace GAD213.P1.MovementSystem
             return _inputActionMove.ReadValue<Vector2>();
 
             // otherwise, return values related to what buttons we have pressed on our keyboard
+        }
+
+        /// <summary>
+        /// Used by FightingInputManager to read for special move inputs. Called in Update
+        /// </summary>
+        private void GetMoveInputs()
+        {
+            if (_inputActionMove.WasPerformedThisFrame() == true)
+            {
+                switch (_inputActionMove.ReadValue<Vector2>().x)
+                {
+                    case > 0:
+                        _fightingInputManager.CheckSpecialAttack1Performed("MoveRight");
+                        _fightingInputManager.CheckSpecialAttack2Performed("MoveRight");
+                        break;
+                    case < 0:
+                        _fightingInputManager.CheckSpecialAttack1Performed("MoveLeft");
+                        _fightingInputManager.CheckSpecialAttack2Performed("MoveLeft");
+                        break;
+                    default:
+                        break;
+                }
+                switch (_inputActionMove.ReadValue<Vector2>().y)
+                {
+                    case > 0:
+                        _fightingInputManager.CheckSpecialAttack1Performed("Jump");
+                        _fightingInputManager.CheckSpecialAttack2Performed("Jump");
+                        break;
+                    case < 0:
+                        _fightingInputManager.CheckSpecialAttack1Performed("Crouch");
+                        _fightingInputManager.CheckSpecialAttack2Performed("Crouch");
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -80,6 +123,11 @@ namespace GAD213.P1.MovementSystem
         void Start()
         {
             InitializeInputActions();
+        }
+
+        private void Update()
+        {
+            GetMoveInputs();
         }
 
         private void OnEnable()

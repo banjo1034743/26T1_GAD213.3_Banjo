@@ -1,4 +1,5 @@
 using GAD213.P1.MovementSystem;
+using GAD213.P3.ConflictSystem.SpecialAttacks;
 using UnityEngine;
 
 namespace GAD213.P2.InteractionSystem
@@ -19,15 +20,15 @@ namespace GAD213.P2.InteractionSystem
 
         [SerializeField] private float _attackStrongHighDamage;
 
-        [Header("Animations")]
+        [Header("Special Attacks")]
 
         [Space(5)]
 
-        private float attackWeakLowDuration;
+        //[SerializeField] private SpecialAttack1 _specialAttack1;
 
-        bool performed = false;
+        [SerializeField] private SpecialAttack2 _specialAttack2;
 
-        [SerializeField] private AnimationClip _attackWeakLowAnimation;
+        [SerializeField] private GameObject _harpoon;
 
         [Header("Scripts")]
 
@@ -67,24 +68,40 @@ namespace GAD213.P2.InteractionSystem
             _animationController.ToggleAttackStrongHighState();
         }
 
+        public void SpecialAttack1()
+        {
+
+        }
+
+        public void SpecialAttack2()
+        {
+            _animationController.ToggleSpecialAttack2State();
+            _harpoon.SetActive(true);
+        }
+
         public void DealDamage(string attackName)
         {
             switch (attackName)
             {
                 case "Attack Weak Low":
                     Debug.Log("We're dealing damage for the Attack Weak Low attack");
-                    _healthManager.UpdateHealth(-_attackWeakLowDamage);
+                    _healthManager.UpdateTestDummyHealth(-_attackWeakLowDamage);
                     break;
                 case "Attack Weak High":
-                    _healthManager.UpdateHealth(-_attackWeakHighDamage);
+                    _healthManager.UpdateTestDummyHealth(-_attackWeakHighDamage);
                     break;
                 case "Attack Strong Low":
-                    _healthManager.UpdateHealth(-_attackStrongLowDamage);
+                    _healthManager.UpdateTestDummyHealth(-_attackStrongLowDamage);
                     break;
                 case "Attack Strong High":
-                    _healthManager.UpdateHealth(-_attackStrongHighDamage);
+                    _healthManager.UpdateTestDummyHealth(-_attackStrongHighDamage);
                     break;
             }
+        }
+
+        private void InitialiseVariables()
+        {
+            _harpoon.SetActive(false);
         }
 
         //void Duration()
@@ -119,7 +136,7 @@ namespace GAD213.P2.InteractionSystem
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            //SetAttackDurations();
+            InitialiseVariables();
         }
 
         // Update is called once per frame

@@ -71,6 +71,24 @@ namespace GAD213.P2.InteractionSystem
             }
         }
 
+        private void CallSpecialAttack1()
+        {
+            if (_inputManager.PerformedSpecialAttack1 == true)
+            {
+                _isAttacking = true;
+            }
+        }
+
+        private void CallSpecialAttack2()
+        {
+            if (_inputManager.PerformedSpecialAttack2 == true)
+            {
+                _isAttacking = true;
+                _attackController.SpecialAttack2();
+                _inputManager.PerformedSpecialAttack2 = false; // Do here so the animation state actually changes
+            }
+        }
+
         private void StopAttacking()
         {
             if (_isAttacking == true)
@@ -111,6 +129,8 @@ namespace GAD213.P2.InteractionSystem
             CallAttackStrongLow();
 
             CallAttackStrongHigh();
+
+            CallSpecialAttack2();
 
             //CheckIfNotAttacking();
         }

@@ -12,8 +12,6 @@ namespace GAD213.P2.InteractionSystem
 
         [SerializeField] private Animator _playerAnimator;
 
-        [SerializeField] private AnimationClip _animationClip;
-
         // === ANIMATION STATES ===
 
         // Our const int values start at 5 as our MovementSystem animation uses these in the Animator
@@ -27,6 +25,10 @@ namespace GAD213.P2.InteractionSystem
         private const int _attackStrongLowState = 7;
 
         private const int _attackStrongHighState = 8;
+
+        private const int _attackSpecialAttack1State = 9;
+
+        private const int _attackSpecialAttack2State = 10;
 
         [Header("Scripts")]
 
@@ -59,6 +61,16 @@ namespace GAD213.P2.InteractionSystem
         public void ToggleAttackStrongHighState()
         {
             _playerAnimator.SetInteger("currentAnimationState", _attackStrongHighState);
+        }
+
+        public void ToggleSpecialAttack1State()
+        {
+
+        }
+
+        public void ToggleSpecialAttack2State()
+        {
+            _playerAnimator.SetInteger("currentAnimationState", _attackSpecialAttack2State);
         }
 
         public void EndAttackStateAnimation()

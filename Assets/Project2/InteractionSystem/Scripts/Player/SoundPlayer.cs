@@ -31,6 +31,12 @@ namespace GAD213.P2.InteractionSystem
 
         private const int _attackStrongHighSFX = 3;
 
+        private const int _harpoonThrowSFX = 4;
+
+        private const int _harpoonHitSFX = 5;
+
+        private const int _getOverHereSFX = 6;
+
         #endregion
 
         #region Methods
@@ -72,6 +78,12 @@ namespace GAD213.P2.InteractionSystem
                     return _soundEffects[_attackStrongLowSFX];
                 case "Attack Strong High":
                     return _soundEffects[_attackStrongHighSFX];
+                case "Harpoon Throw":
+                    return _soundEffects[_harpoonThrowSFX];
+                case "Harpoon Hit":
+                    return _soundEffects[_harpoonHitSFX];
+                case "Get Over Here":
+                    return _soundEffects[_getOverHereSFX];
                 default:
                     return _soundEffects[0];
             }

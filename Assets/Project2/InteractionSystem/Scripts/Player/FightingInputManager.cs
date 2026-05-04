@@ -36,6 +36,13 @@ namespace GAD213.P2.InteractionSystem
         private const int _usingKeyboard = 1;
 
         // === SPECIAL ATTACKS ===
+        [Header("Special Attacks")]
+
+        [SerializeField] private bool _performedSpecialAttack1 = false;
+        public bool PerformedSpecialAttack1 { get { return _performedSpecialAttack1; } set { _performedSpecialAttack1 = value; } }
+
+        [SerializeField] private bool _performedSpecialAttack2 = false;
+        public bool PerformedSpecialAttack2 { get { return _performedSpecialAttack2; } set { _performedSpecialAttack2 = value; } }
 
         private int _completedInputsSpecialAttack1 = 0;
 
@@ -129,6 +136,7 @@ namespace GAD213.P2.InteractionSystem
         {
             if (_timeBetweenSpecialAttack1InputsTimer.HasExpired == true)
             {
+                _completedInputsSpecialAttack1 = 0;
                 Debug.Log("Special Move 1 Timeframe has started");
                 RegisterSpecialAttackInput(inputName, _specialAttack1Inputs[_completedInputsSpecialAttack1], "SpecialAttack1");
                 _timeBetweenSpecialAttack1InputsTimer.Restart();
@@ -142,6 +150,7 @@ namespace GAD213.P2.InteractionSystem
                 {
                     // Do special attack
                     Debug.Log("Scorpion teleported behind enemy!"); // If I can't get the harpoon working soon then skip this
+                    _performedSpecialAttack1 = true;
                     _completedInputsSpecialAttack1 = 0;
                 }
             }
@@ -151,6 +160,7 @@ namespace GAD213.P2.InteractionSystem
         {
             if (_timeBetweenSpecialAttack2InputsTimer.HasExpired == true)
             {
+                _completedInputsSpecialAttack2 = 0;
                 Debug.Log("Special Move 2 Timeframe has started");
                 RegisterSpecialAttackInput(inputName, _specialAttack2Inputs[_completedInputsSpecialAttack2], "SpecialAttack2");
                 _timeBetweenSpecialAttack2InputsTimer.Restart();
@@ -164,6 +174,7 @@ namespace GAD213.P2.InteractionSystem
                 {
                     // Do special attack
                     Debug.Log("Scorpion used his harpoon!");
+                    _performedSpecialAttack2 = true;
                     _completedInputsSpecialAttack2 = 0;
                 }
             }
